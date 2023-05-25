@@ -40,6 +40,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(15, 69, 113));
+        setPreferredSize(new java.awt.Dimension(450, 300));
         setResizable(false);
 
         PanelMain.setBackground(new java.awt.Color(28, 35, 46));

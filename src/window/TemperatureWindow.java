@@ -4,6 +4,8 @@
  */
 package window;
 
+import convert.TemperatureConvert;
+
 /**
  *
  * @author eynar
@@ -31,13 +33,14 @@ public class TemperatureWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         TemperatureTitle = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        tempratureListOne = new javax.swing.JComboBox<>();
-        tempratureListTwo = new javax.swing.JComboBox<>();
-        temperatureOne = new javax.swing.JTextField();
-        temperatureTwo = new javax.swing.JTextField();
-        temperatureReverse = new javax.swing.JButton();
+        labelCelsius = new javax.swing.JLabel();
+        labelFahrenheit = new javax.swing.JLabel();
+        fieldCelsius = new javax.swing.JTextField();
+        fieldFahrenheit = new javax.swing.JTextField();
+        labelKelvin = new javax.swing.JLabel();
+        labelRankine = new javax.swing.JLabel();
+        fieldKelvin = new javax.swing.JTextField();
+        fieldRankine = new javax.swing.JTextField();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         MainMenu = new javax.swing.JMenuItem();
@@ -67,85 +70,117 @@ public class TemperatureWindow extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(TemperatureTitle, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("De:");
+        labelCelsius.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        labelCelsius.setForeground(new java.awt.Color(204, 204, 204));
+        labelCelsius.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelCelsius.setText("Celsius");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jLabel2, gridBagConstraints);
+        jPanel1.add(labelCelsius, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("A:");
+        labelFahrenheit.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        labelFahrenheit.setForeground(new java.awt.Color(204, 204, 204));
+        labelFahrenheit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFahrenheit.setText("Fahrenheit");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jLabel3, gridBagConstraints);
+        jPanel1.add(labelFahrenheit, gridBagConstraints);
 
-        tempratureListOne.setBackground(new java.awt.Color(58, 49, 50));
-        tempratureListOne.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        tempratureListOne.setForeground(new java.awt.Color(255, 255, 255));
-        tempratureListOne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        tempratureListOne.setBorder(null);
+        fieldCelsius.setBackground(new java.awt.Color(58, 49, 50));
+        fieldCelsius.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        fieldCelsius.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCelsius.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldCelsius.setCaretColor(new java.awt.Color(51, 51, 51));
+        fieldCelsius.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldCelsiusActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(tempratureListOne, gridBagConstraints);
+        jPanel1.add(fieldCelsius, gridBagConstraints);
 
-        tempratureListTwo.setBackground(new java.awt.Color(58, 49, 50));
-        tempratureListTwo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        tempratureListTwo.setForeground(new java.awt.Color(255, 255, 255));
-        tempratureListTwo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        tempratureListTwo.setBorder(null);
+        fieldFahrenheit.setBackground(new java.awt.Color(58, 49, 50));
+        fieldFahrenheit.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        fieldFahrenheit.setForeground(new java.awt.Color(255, 255, 255));
+        fieldFahrenheit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldFahrenheit.setCaretColor(new java.awt.Color(51, 51, 51));
+        fieldFahrenheit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldFahrenheitActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(tempratureListTwo, gridBagConstraints);
+        jPanel1.add(fieldFahrenheit, gridBagConstraints);
 
-        temperatureOne.setBackground(new java.awt.Color(58, 49, 50));
-        temperatureOne.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        temperatureOne.setForeground(new java.awt.Color(255, 255, 255));
-        temperatureOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        temperatureOne.setCaretColor(new java.awt.Color(51, 51, 51));
+        labelKelvin.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        labelKelvin.setForeground(new java.awt.Color(204, 204, 204));
+        labelKelvin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelKelvin.setText("Kelvin");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(temperatureOne, gridBagConstraints);
+        jPanel1.add(labelKelvin, gridBagConstraints);
 
-        temperatureTwo.setBackground(new java.awt.Color(58, 49, 50));
-        temperatureTwo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        temperatureTwo.setForeground(new java.awt.Color(255, 255, 255));
-        temperatureTwo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        temperatureTwo.setCaretColor(new java.awt.Color(51, 51, 51));
+        labelRankine.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        labelRankine.setForeground(new java.awt.Color(204, 204, 204));
+        labelRankine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelRankine.setText("Rankine");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(temperatureTwo, gridBagConstraints);
+        jPanel1.add(labelRankine, gridBagConstraints);
 
-        temperatureReverse.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        temperatureReverse.setText("Reverse");
+        fieldKelvin.setBackground(new java.awt.Color(58, 49, 50));
+        fieldKelvin.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        fieldKelvin.setForeground(new java.awt.Color(255, 255, 255));
+        fieldKelvin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldKelvin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldKelvinActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(temperatureReverse, gridBagConstraints);
+        jPanel1.add(fieldKelvin, gridBagConstraints);
+
+        fieldRankine.setBackground(new java.awt.Color(58, 49, 50));
+        fieldRankine.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        fieldRankine.setForeground(new java.awt.Color(255, 255, 255));
+        fieldRankine.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fieldRankine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldRankineActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel1.add(fieldRankine, gridBagConstraints);
 
         MenuBar.setBackground(new java.awt.Color(15, 69, 113));
         MenuBar.setBorder(null);
@@ -248,6 +283,54 @@ public class TemperatureWindow extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_MainMenuActionPerformed
 
+    private void fieldCelsiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCelsiusActionPerformed
+        double celsius = Double.parseDouble(fieldCelsius.getText());
+
+        // Crear un objeto TemperatureConvert a partir de Celsius
+        TemperatureConvert temperature = TemperatureConvert.fromCelsius(celsius);
+
+        // Actualizar los valores en los otros textField
+        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
+        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
+        fieldRankine.setText(String.valueOf(temperature.getRankine()));
+    }//GEN-LAST:event_fieldCelsiusActionPerformed
+
+    private void fieldFahrenheitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFahrenheitActionPerformed
+        double fahrenheit = Double.parseDouble(fieldFahrenheit.getText());
+
+        // Crear un objeto TemperatureConvert a partir de Fahrenheit
+        TemperatureConvert temperature = TemperatureConvert.fromFahrenheit(fahrenheit);
+
+        // Actualizar los valores en los otros textField
+        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
+        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
+        fieldRankine.setText(String.valueOf(temperature.getRankine()));
+    }//GEN-LAST:event_fieldFahrenheitActionPerformed
+
+    private void fieldKelvinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldKelvinActionPerformed
+        double kelvin = Double.parseDouble(fieldKelvin.getText());
+
+        // Crear un objeto TemperatureConvert a partir de Kelvin
+        TemperatureConvert temperature = TemperatureConvert.fromKelvin(kelvin);
+
+        // Actualizar los valores en los otros textField
+        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
+        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
+        fieldRankine.setText(String.valueOf(temperature.getRankine()));
+    }//GEN-LAST:event_fieldKelvinActionPerformed
+
+    private void fieldRankineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldRankineActionPerformed
+        double rankine = Double.parseDouble(fieldRankine.getText());
+
+        // Crear un objeto TemperatureConvert a partir de Rankine
+        TemperatureConvert temperature = TemperatureConvert.fromRankine(rankine);
+
+        // Actualizar los valores en los otros textField
+        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
+        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
+        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
+    }//GEN-LAST:event_fieldRankineActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,14 +378,15 @@ public class TemperatureWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem TemperatureConverter;
     private javax.swing.JLabel TemperatureTitle;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField fieldCelsius;
+    private javax.swing.JTextField fieldFahrenheit;
+    private javax.swing.JTextField fieldKelvin;
+    private javax.swing.JTextField fieldRankine;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelCelsius;
+    private javax.swing.JLabel labelFahrenheit;
+    private javax.swing.JLabel labelKelvin;
+    private javax.swing.JLabel labelRankine;
     private javax.swing.JPopupMenu.Separator separator;
-    private javax.swing.JTextField temperatureOne;
-    private javax.swing.JButton temperatureReverse;
-    private javax.swing.JTextField temperatureTwo;
-    private javax.swing.JComboBox<String> tempratureListOne;
-    private javax.swing.JComboBox<String> tempratureListTwo;
     // End of variables declaration//GEN-END:variables
 }
