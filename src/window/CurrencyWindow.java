@@ -5,6 +5,8 @@
 package window;
 
 import convert.CurrencyConvert;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -13,29 +15,46 @@ import javax.swing.JOptionPane;
  * @author eynar
  */
 public class CurrencyWindow extends javax.swing.JFrame {
-    
+
     private String currency1 = "";
     private String currency2 = "";
     private Double cambio;
     private String cantidad = "";
     private Double dinero;
-    
+
     private CurrencyConvert currencyConvert, turnCurrency;
     private HashMap<String, Double> tasasDeCambio;
     private HashMap<String, String> reverseCambio;
-    
+
     public CurrencyWindow() {
         initComponents();
         setSize(450, 300);
         setLocationRelativeTo(null);
-        
+
         currencyConvert = new CurrencyConvert();
         currencyConvert.CambioDinero();
         tasasDeCambio = currencyConvert.getTasaDeCambio();
-        
+
         turnCurrency = new CurrencyConvert();
         turnCurrency.ReverseDinero();
         reverseCambio = turnCurrency.getCurrencyReverse();
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                confirmExit();
+            }
+        });
+    }
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {
+        confirmExit();
+    }
+
+    private void confirmExit() {
+        int option = JOptionPane.showOptionDialog(this, "¿Está seguro que desea cerrar el programa?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     /**
@@ -63,7 +82,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         CurrencyConverter = new javax.swing.JMenuItem();
         TemperatureConverter = new javax.swing.JMenuItem();
         separator = new javax.swing.JPopupMenu.Separator();
-        Exit = new javax.swing.JMenuItem();
+        exitOption = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -233,18 +252,18 @@ public class CurrencyWindow extends javax.swing.JFrame {
         separator.setBackground(new java.awt.Color(33, 1, 35));
         FileMenu.add(separator);
 
-        Exit.setBackground(new java.awt.Color(33, 1, 35));
-        Exit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Exit.setForeground(new java.awt.Color(204, 204, 204));
-        Exit.setText("Salir");
-        Exit.setBorder(null);
-        Exit.setBorderPainted(false);
-        Exit.addActionListener(new java.awt.event.ActionListener() {
+        exitOption.setBackground(new java.awt.Color(33, 1, 35));
+        exitOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        exitOption.setForeground(new java.awt.Color(204, 204, 204));
+        exitOption.setText("Salir");
+        exitOption.setBorder(null);
+        exitOption.setBorderPainted(false);
+        exitOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitActionPerformed(evt);
+                exitOptionActionPerformed(evt);
             }
         });
-        FileMenu.add(Exit);
+        FileMenu.add(exitOption);
 
         MenuBar.add(FileMenu);
 
@@ -276,9 +295,12 @@ public class CurrencyWindow extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_TemperatureConverterActionPerformed
 
-    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ExitActionPerformed
+    private void exitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitOptionActionPerformed
+        int option = JOptionPane.showOptionDialog(this, "¿Está seguro que desea cerrar el programa?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_exitOptionActionPerformed
 
     private void MainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuActionPerformed
         MainWindow mainWindow = new MainWindow();
@@ -289,14 +311,14 @@ public class CurrencyWindow extends javax.swing.JFrame {
     private void currencyOneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_currencyOneKeyTyped
         char inputChar = evt.getKeyChar();
         int caretPosition = currencyOne.getCaretPosition();
-        
+
         try {
             if (Character.isDigit(inputChar) || inputChar == '.') {
                 if (inputChar == '.' && cantidad.contains(".")) {
                     evt.consume();
                     return;
                 }
-                
+
                 String selectedText = currencyOne.getSelectedText();
                 if (selectedText != null) {
                     int selectionStart = currencyOne.getSelectionStart();
@@ -320,7 +342,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
                 evt.consume();
             }
-            
+
             System.out.println(cantidad);
             System.out.println(dinero);
         } catch (NumberFormatException e) {
@@ -337,9 +359,9 @@ public class CurrencyWindow extends javax.swing.JFrame {
 
     private void currencyReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currencyReverseActionPerformed
         String actualCurrency = String.valueOf(currencyListOne.getSelectedItem());
-        
+
         String newCurrency = reverseCambio.getOrDefault(currency1, "Dólar ($) a Bolivianos (Bs)");
-        
+
         if (newCurrency != null) {
             currencyListOne.setSelectedItem(newCurrency);
         }
@@ -353,7 +375,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_buttonBackActionPerformed
-    
+
     private void obtenerDinero(String cantidad) {
         if (cantidad.isEmpty()) {
             dinero = 0.0;
@@ -364,7 +386,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         dinero = dinero * cambio;
         currencyTwo.setText(String.format("%.2f", dinero));
     }
-    
+
     private void cambioDivisas() {
         if (null != currency1) {
             cambio = tasasDeCambio.getOrDefault(currency1, 0.14);
@@ -393,7 +415,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
 //            }
 //        }
     }
-    
+
     private void eliminarUltimoDigito() {
         if (!cantidad.isEmpty()) {
             cantidad = cantidad.substring(0, cantidad.length() - 1);
@@ -419,7 +441,6 @@ public class CurrencyWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CurrencyConverter;
     private javax.swing.JLabel CurrencyTitle;
-    private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenu HelpMenu;
     private javax.swing.JMenuItem MainMenu;
@@ -432,6 +453,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
     private javax.swing.JTextField currencyOne;
     private javax.swing.JButton currencyReverse;
     private javax.swing.JLabel currencyTwo;
+    private javax.swing.JMenuItem exitOption;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator separator;
     // End of variables declaration//GEN-END:variables

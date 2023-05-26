@@ -5,6 +5,8 @@
 package window;
 
 import convert.TemperatureConvert;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
@@ -65,6 +67,19 @@ public class TemperatureWindow extends javax.swing.JFrame {
         setSize(450, 300);
         setLocationRelativeTo(null);
         temperature = new Temperature<>();
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                confirmExit();
+            }
+        });
+    }
+
+    private void confirmExit() {
+        int option = JOptionPane.showOptionDialog(this, "¿Está seguro que desea cerrar el programa?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     /**
@@ -94,7 +109,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         CurrencyConverter = new javax.swing.JMenuItem();
         TemperatureConverter = new javax.swing.JMenuItem();
         separator = new javax.swing.JPopupMenu.Separator();
-        Exit = new javax.swing.JMenuItem();
+        exitOption = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -297,18 +312,18 @@ public class TemperatureWindow extends javax.swing.JFrame {
         separator.setBackground(new java.awt.Color(0, 157, 221));
         FileMenu.add(separator);
 
-        Exit.setBackground(new java.awt.Color(58, 49, 50));
-        Exit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Exit.setForeground(new java.awt.Color(204, 204, 204));
-        Exit.setText("Salir");
-        Exit.setBorder(null);
-        Exit.setBorderPainted(false);
-        Exit.addActionListener(new java.awt.event.ActionListener() {
+        exitOption.setBackground(new java.awt.Color(58, 49, 50));
+        exitOption.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        exitOption.setForeground(new java.awt.Color(204, 204, 204));
+        exitOption.setText("Salir");
+        exitOption.setBorder(null);
+        exitOption.setBorderPainted(false);
+        exitOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitActionPerformed(evt);
+                exitOptionActionPerformed(evt);
             }
         });
-        FileMenu.add(Exit);
+        FileMenu.add(exitOption);
 
         MenuBar.add(FileMenu);
 
@@ -340,9 +355,12 @@ public class TemperatureWindow extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_CurrencyConverterActionPerformed
 
-    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ExitActionPerformed
+    private void exitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitOptionActionPerformed
+        int option = JOptionPane.showOptionDialog(this, "¿Está seguro que desea cerrar el programa?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_exitOptionActionPerformed
 
     private void MainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainMenuActionPerformed
         MainWindow mainWindow = new MainWindow();
@@ -526,7 +544,6 @@ public class TemperatureWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CurrencyConverter;
-    private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenu HelpMenu;
     private javax.swing.JMenuItem MainMenu;
@@ -534,6 +551,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem TemperatureConverter;
     private javax.swing.JLabel TemperatureTitle;
     private javax.swing.JButton buttonBack;
+    private javax.swing.JMenuItem exitOption;
     private javax.swing.JTextField fieldCelsius;
     private javax.swing.JTextField fieldFahrenheit;
     private javax.swing.JTextField fieldKelvin;
