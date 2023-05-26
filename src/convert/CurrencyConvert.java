@@ -1,15 +1,14 @@
 package convert;
 
 import java.util.HashMap;
-import window.CurrencyWindow;
 
 public class CurrencyConvert {
 
-    private HashMap<String, Double> tasaDeCambioOriginal;
+    private HashMap<String, Double> tasaDeCambioOriginal = new HashMap<>();
+    private HashMap<String, String> currencyReverseMap = new HashMap<>();
 
     public void CambioDinero() {
 
-        tasaDeCambioOriginal = new HashMap<>();
         tasaDeCambioOriginal.put("Bolivianos (Bs) a Dólar ($)", 0.14);
         tasaDeCambioOriginal.put("Bolivianos (Bs) a Euro (€)", 0.13);
         tasaDeCambioOriginal.put("Bolivianos (Bs) a Libras Esterlinas (£)", 0.12);
@@ -24,5 +23,24 @@ public class CurrencyConvert {
 
     public HashMap<String, Double> getTasaDeCambio() {
         return tasaDeCambioOriginal;
+    }
+
+    public void ReverseDinero() {
+
+        currencyReverseMap.put("Bolivianos (Bs) a Dólar ($)", "Dólar ($) a Bolivianos (Bs)");
+        currencyReverseMap.put("Bolivianos (Bs) a Euro (€)", "Euro (€) a Bolivianos (Bs)");
+        currencyReverseMap.put("Bolivianos (Bs) a Libras Esterlinas (£)", "Libras Esterlinas (£) a Bolivianos (Bs)");
+        currencyReverseMap.put("Bolivianos (Bs) a Yen Japonés (¥)", "Yen Japonés (¥) a Bolivianos (Bs)");
+        currencyReverseMap.put("Bolivianos (Bs) a Won sur-coreano (₩)", "Won sur-coreano (₩) a Bolivianos (Bs)");
+        currencyReverseMap.put("Dólar ($) a Bolivianos (Bs)", "Bolivianos (Bs) a Dólar ($)");
+        currencyReverseMap.put("Euro (€) a Bolivianos (Bs)", "Bolivianos (Bs) a Euro (€)");
+        currencyReverseMap.put("Libras Esterlinas (£) a Bolivianos (Bs)", "Bolivianos (Bs) a Libras Esterlinas (£)");
+        currencyReverseMap.put("Yen Japonés (¥) a Bolivianos (Bs)", "Bolivianos (Bs) a Yen Japonés (¥)");
+        currencyReverseMap.put("Won sur-coreano (₩) a Bolivianos (Bs)", "Bolivianos (Bs) a Won sur-coreano (₩)");
+
+    }
+
+    public HashMap<String, String> getCurrencyReverse() {
+        return currencyReverseMap;
     }
 }

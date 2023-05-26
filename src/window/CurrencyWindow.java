@@ -13,24 +13,29 @@ import javax.swing.JOptionPane;
  * @author eynar
  */
 public class CurrencyWindow extends javax.swing.JFrame {
-
+    
     private String currency1 = "";
     private String currency2 = "";
     private Double cambio;
     private String cantidad = "";
     private Double dinero;
-
-    private CurrencyConvert currencyConvert;
+    
+    private CurrencyConvert currencyConvert, turnCurrency;
     private HashMap<String, Double> tasasDeCambio;
-
+    private HashMap<String, String> reverseCambio;
+    
     public CurrencyWindow() {
         initComponents();
         setSize(450, 300);
         setLocationRelativeTo(null);
-
+        
         currencyConvert = new CurrencyConvert();
         currencyConvert.CambioDinero();
         tasasDeCambio = currencyConvert.getTasaDeCambio();
+        
+        turnCurrency = new CurrencyConvert();
+        turnCurrency.ReverseDinero();
+        reverseCambio = turnCurrency.getCurrencyReverse();
     }
 
     /**
@@ -51,6 +56,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyLabelOne = new javax.swing.JLabel();
         currencyLabelTwo = new javax.swing.JLabel();
         currencyTwo = new javax.swing.JLabel();
+        buttonBack = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         MainMenu = new javax.swing.JMenuItem();
@@ -72,7 +78,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         CurrencyTitle.setText("Conversor de Moneda");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 4;
@@ -83,7 +89,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyListOne.setBackground(new java.awt.Color(33, 1, 35));
         currencyListOne.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         currencyListOne.setForeground(new java.awt.Color(255, 255, 255));
-        currencyListOne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bolivianos (Bs) a Dólar ($)", "Bolivianos (Bs) a Euro (€)", "Bolivianos (Bs) a Libras Esterlinas (£)", "Bolivianos (Bs) a Yen Japonés (¥)", "Bolivianos (Bs) a Won sur-coreano (₩)" }));
+        currencyListOne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bolivianos (Bs) a Dólar ($)", "Bolivianos (Bs) a Euro (€)", "Bolivianos (Bs) a Libras Esterlinas (£)", "Bolivianos (Bs) a Yen Japonés (¥)", "Bolivianos (Bs) a Won sur-coreano (₩)", "Dólar ($) a Bolivianos (Bs)", "Euro (€) a Bolivianos (Bs)", "Libras Esterlinas (£) a Bolivianos (Bs)", "Yen Japonés (¥) a Bolivianos (Bs)", "Won sur-coreano (₩) a Bolivianos (Bs)" }));
         currencyListOne.setBorder(null);
         currencyListOne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +98,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
@@ -110,16 +116,21 @@ public class CurrencyWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(currencyOne, gridBagConstraints);
 
         currencyReverse.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        currencyReverse.setText("Reverse");
+        currencyReverse.setText("Intercambiar Moneda");
+        currencyReverse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currencyReverseActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(currencyReverse, gridBagConstraints);
@@ -130,7 +141,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyLabelOne.setText("Bs");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel1.add(currencyLabelOne, gridBagConstraints);
@@ -140,7 +151,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyLabelTwo.setText("$");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
         jPanel1.add(currencyLabelTwo, gridBagConstraints);
@@ -151,10 +162,28 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyTwo.setText("0.00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(currencyTwo, gridBagConstraints);
+
+        buttonBack.setBackground(new java.awt.Color(58, 49, 50));
+        buttonBack.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        buttonBack.setForeground(new java.awt.Color(255, 255, 255));
+        buttonBack.setText("Regresar");
+        buttonBack.setBorderPainted(false);
+        buttonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBackActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(buttonBack, gridBagConstraints);
 
         MenuBar.setBackground(new java.awt.Color(64, 28, 42));
         MenuBar.setBorder(null);
@@ -260,14 +289,14 @@ public class CurrencyWindow extends javax.swing.JFrame {
     private void currencyOneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_currencyOneKeyTyped
         char inputChar = evt.getKeyChar();
         int caretPosition = currencyOne.getCaretPosition();
-
+        
         try {
             if (Character.isDigit(inputChar) || inputChar == '.') {
                 if (inputChar == '.' && cantidad.contains(".")) {
                     evt.consume();
                     return;
                 }
-
+                
                 String selectedText = currencyOne.getSelectedText();
                 if (selectedText != null) {
                     int selectionStart = currencyOne.getSelectionStart();
@@ -291,7 +320,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
                 evt.consume();
             }
-
+            
             System.out.println(cantidad);
             System.out.println(dinero);
         } catch (NumberFormatException e) {
@@ -306,6 +335,25 @@ public class CurrencyWindow extends javax.swing.JFrame {
         //dinero = Double.valueOf(currencyTwo.getText());
     }//GEN-LAST:event_currencyListOneActionPerformed
 
+    private void currencyReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currencyReverseActionPerformed
+        String actualCurrency = String.valueOf(currencyListOne.getSelectedItem());
+        
+        String newCurrency = reverseCambio.getOrDefault(currency1, "Dólar ($) a Bolivianos (Bs)");
+        
+        if (newCurrency != null) {
+            currencyListOne.setSelectedItem(newCurrency);
+        }
+    }//GEN-LAST:event_currencyReverseActionPerformed
+
+    private void buttonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackActionPerformed
+        int option = JOptionPane.showOptionDialog(this, "¿Desea regresar al inicio?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_buttonBackActionPerformed
+    
     private void obtenerDinero(String cantidad) {
         if (cantidad.isEmpty()) {
             dinero = 0.0;
@@ -316,7 +364,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         dinero = dinero * cambio;
         currencyTwo.setText(String.format("%.2f", dinero));
     }
-
+    
     private void cambioDivisas() {
         if (null != currency1) {
             cambio = tasasDeCambio.getOrDefault(currency1, 0.14);
@@ -345,7 +393,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
 //            }
 //        }
     }
-
+    
     private void eliminarUltimoDigito() {
         if (!cantidad.isEmpty()) {
             cantidad = cantidad.substring(0, cantidad.length() - 1);
@@ -377,6 +425,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem MainMenu;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem TemperatureConverter;
+    private javax.swing.JButton buttonBack;
     private javax.swing.JLabel currencyLabelOne;
     private javax.swing.JLabel currencyLabelTwo;
     private javax.swing.JComboBox<String> currencyListOne;

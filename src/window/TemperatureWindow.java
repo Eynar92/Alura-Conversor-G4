@@ -87,6 +87,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         labelRankine = new javax.swing.JLabel();
         fieldKelvin = new javax.swing.JTextField();
         fieldRankine = new javax.swing.JTextField();
+        buttonBack = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         MainMenu = new javax.swing.JMenuItem();
@@ -108,7 +109,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         TemperatureTitle.setText("Conversor de Temperatura");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 4;
@@ -122,10 +123,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         labelCelsius.setText("Celsius");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         jPanel1.add(labelCelsius, gridBagConstraints);
 
         labelFahrenheit.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -134,10 +135,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         labelFahrenheit.setText("Fahrenheit");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         jPanel1.add(labelFahrenheit, gridBagConstraints);
 
         fieldCelsius.setBackground(new java.awt.Color(58, 49, 50));
@@ -152,7 +153,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(fieldCelsius, gridBagConstraints);
@@ -169,7 +170,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(fieldFahrenheit, gridBagConstraints);
@@ -180,9 +181,9 @@ public class TemperatureWindow extends javax.swing.JFrame {
         labelKelvin.setText("Kelvin");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         jPanel1.add(labelKelvin, gridBagConstraints);
 
         labelRankine.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -191,9 +192,9 @@ public class TemperatureWindow extends javax.swing.JFrame {
         labelRankine.setText("Rankine");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         jPanel1.add(labelRankine, gridBagConstraints);
 
         fieldKelvin.setBackground(new java.awt.Color(58, 49, 50));
@@ -208,7 +209,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(fieldKelvin, gridBagConstraints);
@@ -225,10 +226,28 @@ public class TemperatureWindow extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(fieldRankine, gridBagConstraints);
+
+        buttonBack.setBackground(new java.awt.Color(58, 49, 50));
+        buttonBack.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        buttonBack.setForeground(new java.awt.Color(255, 255, 255));
+        buttonBack.setText("Regresar");
+        buttonBack.setBorderPainted(false);
+        buttonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBackActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(buttonBack, gridBagConstraints);
 
         MenuBar.setBackground(new java.awt.Color(15, 69, 113));
         MenuBar.setBorder(null);
@@ -458,6 +477,15 @@ public class TemperatureWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fieldRankineKeyReleased
 
+    private void buttonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackActionPerformed
+        int option = JOptionPane.showOptionDialog(this, "¿Desea regresar al inicio?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, "No");
+        if (option == JOptionPane.YES_OPTION) {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_buttonBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -505,6 +533,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem TemperatureConverter;
     private javax.swing.JLabel TemperatureTitle;
+    private javax.swing.JButton buttonBack;
     private javax.swing.JTextField fieldCelsius;
     private javax.swing.JTextField fieldFahrenheit;
     private javax.swing.JTextField fieldKelvin;
