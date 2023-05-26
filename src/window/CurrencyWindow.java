@@ -102,7 +102,7 @@ public class CurrencyWindow extends javax.swing.JFrame {
         currencyOne.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         currencyOne.setForeground(new java.awt.Color(255, 255, 255));
         currencyOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        currencyOne.setCaretColor(new java.awt.Color(51, 51, 51));
+        currencyOne.setCaretColor(new java.awt.Color(255, 255, 255));
         currencyOne.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 currencyOneKeyTyped(evt);

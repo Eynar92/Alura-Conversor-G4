@@ -5,12 +5,57 @@
 package window;
 
 import convert.TemperatureConvert;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author eynar
  */
+class Temperature<T> {
+
+    private T celsius;
+    private T fahrenheit;
+    private T kelvin;
+    private T rankine;
+
+    public T getCelsius() {
+        return celsius;
+    }
+
+    public void setCelsius(T celsius) {
+        this.celsius = celsius;
+    }
+
+    public T getFahrenheit() {
+        return fahrenheit;
+    }
+
+    public void setFahrenheit(T fahrenheit) {
+        this.fahrenheit = fahrenheit;
+    }
+
+    public T getKelvin() {
+        return kelvin;
+    }
+
+    public void setKelvin(T kelvin) {
+        this.kelvin = kelvin;
+    }
+
+    public T getRankine() {
+        return rankine;
+    }
+
+    public void setRankine(T rankine) {
+        this.rankine = rankine;
+    }
+}
+
 public class TemperatureWindow extends javax.swing.JFrame {
+
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private Temperature<Double> temperature;
 
     /**
      * Creates new form currencyWindow
@@ -19,6 +64,7 @@ public class TemperatureWindow extends javax.swing.JFrame {
         initComponents();
         setSize(450, 300);
         setLocationRelativeTo(null);
+        temperature = new Temperature<>();
     }
 
     /**
@@ -98,10 +144,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         fieldCelsius.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         fieldCelsius.setForeground(new java.awt.Color(255, 255, 255));
         fieldCelsius.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldCelsius.setCaretColor(new java.awt.Color(51, 51, 51));
-        fieldCelsius.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldCelsiusActionPerformed(evt);
+        fieldCelsius.setCaretColor(new java.awt.Color(255, 255, 255));
+        fieldCelsius.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldCelsiusKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -115,10 +161,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         fieldFahrenheit.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         fieldFahrenheit.setForeground(new java.awt.Color(255, 255, 255));
         fieldFahrenheit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldFahrenheit.setCaretColor(new java.awt.Color(51, 51, 51));
-        fieldFahrenheit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldFahrenheitActionPerformed(evt);
+        fieldFahrenheit.setCaretColor(new java.awt.Color(255, 255, 255));
+        fieldFahrenheit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldFahrenheitKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -154,9 +200,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         fieldKelvin.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         fieldKelvin.setForeground(new java.awt.Color(255, 255, 255));
         fieldKelvin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldKelvin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldKelvinActionPerformed(evt);
+        fieldKelvin.setCaretColor(new java.awt.Color(255, 255, 255));
+        fieldKelvin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldKelvinKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -170,9 +217,10 @@ public class TemperatureWindow extends javax.swing.JFrame {
         fieldRankine.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         fieldRankine.setForeground(new java.awt.Color(255, 255, 255));
         fieldRankine.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        fieldRankine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldRankineActionPerformed(evt);
+        fieldRankine.setCaretColor(new java.awt.Color(255, 255, 255));
+        fieldRankine.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldRankineKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -283,53 +331,132 @@ public class TemperatureWindow extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_MainMenuActionPerformed
 
-    private void fieldCelsiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCelsiusActionPerformed
-        double celsius = Double.parseDouble(fieldCelsius.getText());
+    private void fieldCelsiusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCelsiusKeyReleased
+        if (!fieldCelsius.getText().isEmpty()) {
+            try {
+                String celsiusInput = fieldCelsius.getText();
 
-        // Crear un objeto TemperatureConvert a partir de Celsius
-        TemperatureConvert temperature = TemperatureConvert.fromCelsius(celsius);
+                // Verificar si ya hay un punto decimal en el número ingresado
+                if (celsiusInput.indexOf(".") != celsiusInput.lastIndexOf(".")) {
+                    // Si hay más de un punto decimal, eliminar el último
+                    JOptionPane.showMessageDialog(this, "Solo se permite un separador decimal", "Error separador decimal", JOptionPane.ERROR_MESSAGE);
+                    celsiusInput = celsiusInput.substring(0, celsiusInput.lastIndexOf("."));
+                    fieldCelsius.setText(celsiusInput);
+                }
 
-        // Actualizar los valores en los otros textField
-        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
-        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
-        fieldRankine.setText(String.valueOf(temperature.getRankine()));
-    }//GEN-LAST:event_fieldCelsiusActionPerformed
+                // Convertir el valor a un número
+                double celsius = Double.parseDouble(fieldCelsius.getText());
+                temperature.setCelsius(celsius);
 
-    private void fieldFahrenheitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldFahrenheitActionPerformed
-        double fahrenheit = Double.parseDouble(fieldFahrenheit.getText());
+                // Crear un objeto TemperatureConvert a partir de Celsius
+                TemperatureConvert temperature = TemperatureConvert.fromCelsius(celsius);
 
-        // Crear un objeto TemperatureConvert a partir de Fahrenheit
-        TemperatureConvert temperature = TemperatureConvert.fromFahrenheit(fahrenheit);
+                // Actualizar los valores en los otros textField
+                fieldFahrenheit.setText(decimalFormat.format(temperature.getFahrenheit()));
+                fieldKelvin.setText(decimalFormat.format(temperature.getKelvin()));
+                fieldRankine.setText(decimalFormat.format(temperature.getRankine()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
+                fieldCelsius.setText("");
+            }
 
-        // Actualizar los valores en los otros textField
-        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
-        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
-        fieldRankine.setText(String.valueOf(temperature.getRankine()));
-    }//GEN-LAST:event_fieldFahrenheitActionPerformed
+        }
+    }//GEN-LAST:event_fieldCelsiusKeyReleased
 
-    private void fieldKelvinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldKelvinActionPerformed
-        double kelvin = Double.parseDouble(fieldKelvin.getText());
+    private void fieldFahrenheitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldFahrenheitKeyReleased
+        if (!fieldFahrenheit.getText().isEmpty()) {
+            try {
+                String fahrenheitInput = fieldFahrenheit.getText();
 
-        // Crear un objeto TemperatureConvert a partir de Kelvin
-        TemperatureConvert temperature = TemperatureConvert.fromKelvin(kelvin);
+                // Verificar si ya hay un punto decimal en el número ingresado
+                if (fahrenheitInput.indexOf(".") != fahrenheitInput.lastIndexOf(".")) {
+                    // Si hay más de un punto decimal, eliminar el último
+                    JOptionPane.showMessageDialog(this, "Solo se permite un separador decimal", "Error separador decimal", JOptionPane.ERROR_MESSAGE);
+                    fahrenheitInput = fahrenheitInput.substring(0, fahrenheitInput.lastIndexOf("."));
+                    fieldKelvin.setText(fahrenheitInput);
+                }
 
-        // Actualizar los valores en los otros textField
-        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
-        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
-        fieldRankine.setText(String.valueOf(temperature.getRankine()));
-    }//GEN-LAST:event_fieldKelvinActionPerformed
+                // Convertir el valor a un número
+                double fahrenheit = Double.parseDouble(fieldFahrenheit.getText());
+                temperature.setFahrenheit(fahrenheit);
 
-    private void fieldRankineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldRankineActionPerformed
-        double rankine = Double.parseDouble(fieldRankine.getText());
+                // Crear un objeto TemperatureConvert a partir de Celsius
+                TemperatureConvert temperature = TemperatureConvert.fromFahrenheit(fahrenheit);
 
-        // Crear un objeto TemperatureConvert a partir de Rankine
-        TemperatureConvert temperature = TemperatureConvert.fromRankine(rankine);
+                // Actualizar los valores en los otros textField
+                fieldCelsius.setText(decimalFormat.format(temperature.getCelsius()));
+                fieldKelvin.setText(decimalFormat.format(temperature.getKelvin()));
+                fieldRankine.setText(decimalFormat.format(temperature.getRankine()));
 
-        // Actualizar los valores en los otros textField
-        fieldCelsius.setText(String.valueOf(temperature.getCelsius()));
-        fieldFahrenheit.setText(String.valueOf(temperature.getFahrenheit()));
-        fieldKelvin.setText(String.valueOf(temperature.getKelvin()));
-    }//GEN-LAST:event_fieldRankineActionPerformed
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
+                fieldFahrenheit.setText("");
+            }
+        }
+    }//GEN-LAST:event_fieldFahrenheitKeyReleased
+
+    private void fieldKelvinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldKelvinKeyReleased
+        if (!fieldKelvin.getText().isEmpty()) {
+            try {
+                String kelvinInput = fieldKelvin.getText();
+
+                // Verificar si ya hay un punto decimal en el número ingresado
+                if (kelvinInput.indexOf(".") != kelvinInput.lastIndexOf(".")) {
+                    // Si hay más de un punto decimal, eliminar el último
+                    JOptionPane.showMessageDialog(this, "Solo se permite un separador decimal", "Error separador decimal", JOptionPane.ERROR_MESSAGE);
+                    kelvinInput = kelvinInput.substring(0, kelvinInput.lastIndexOf("."));
+                    fieldKelvin.setText(kelvinInput);
+                }
+
+                // Convertir el valor a un número
+                double kelvin = Double.parseDouble(fieldKelvin.getText());
+                temperature.setKelvin(kelvin);
+
+                // Crear un objeto TemperatureConvert a partir de Celsius
+                TemperatureConvert temperature = TemperatureConvert.fromKelvin(kelvin);
+
+                // Actualizar los valores en los otros textField
+                fieldCelsius.setText(decimalFormat.format(temperature.getCelsius()));
+                fieldFahrenheit.setText(decimalFormat.format(temperature.getFahrenheit()));
+                fieldRankine.setText(decimalFormat.format(temperature.getRankine()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
+                fieldKelvin.setText("");
+            }
+        }
+    }//GEN-LAST:event_fieldKelvinKeyReleased
+
+    private void fieldRankineKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRankineKeyReleased
+        if (!fieldRankine.getText().isEmpty()) {
+            try {
+                String rankineInput = fieldRankine.getText();
+
+                // Verificar si ya hay un punto decimal en el número ingresado
+                if (rankineInput.indexOf(".") != rankineInput.lastIndexOf(".")) {
+                    // Si hay más de un punto decimal, eliminar el último
+                    JOptionPane.showMessageDialog(this, "Solo se permite un separador decimal", "Error separador decimal", JOptionPane.ERROR_MESSAGE);
+                    rankineInput = rankineInput.substring(0, rankineInput.lastIndexOf("."));
+                    fieldRankine.setText(rankineInput);
+                }
+
+                // Convertir el valor a un número
+                double rankine = Double.parseDouble(fieldRankine.getText());
+                temperature.setKelvin(rankine);
+
+                // Crear un objeto TemperatureConvert a partir de Celsius
+                TemperatureConvert temperature = TemperatureConvert.fromRankine(rankine);
+
+                // Actualizar los valores en los otros textField
+                fieldCelsius.setText(decimalFormat.format(temperature.getCelsius()));
+                fieldFahrenheit.setText(decimalFormat.format(temperature.getFahrenheit()));
+                fieldKelvin.setText(decimalFormat.format(temperature.getKelvin()));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Solo se permiten números", "Error", JOptionPane.ERROR_MESSAGE);
+                fieldRankine.setText("");
+
+            }
+        }
+    }//GEN-LAST:event_fieldRankineKeyReleased
 
     /**
      * @param args the command line arguments
